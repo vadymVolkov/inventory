@@ -316,7 +316,7 @@ module.exports = {
             });
     },
     getItemsByFullName: (req, res) => {
-        let itemName = req.query.itemName + '%';
+        let itemName = '%' + req.query.itemName + '%';
         let query = 'SELECT i.id, i.itemName, i.itemDescription, GROUP_CONCAT(c.categoryName) AS categoryName FROM inventory.Items i LEFT JOIN inventory.ItemsCategories ic ON i.id = ic.itemId LEFT JOIN inventory.Categories c ON ic.categoryId = c.id WHERE i.itemName LIKE ? GROUP BY i.id';
         sql.query(query, itemName)
             .then(result => {
