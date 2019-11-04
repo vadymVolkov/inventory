@@ -315,6 +315,19 @@ module.exports = {
                 return res.sendStatus(500);
             });
     },
+    getItemsByFullName: (req, res) => {
+        let itemName = req.query.itemName + '%';
+        let query = 'SELECT i.id, i.itemName, i.itemDescription, GROUP_CONCAT(c.categoryName) AS categoryName FROM inventory.Items i LEFT JOIN inventory.ItemsCategories ic ON i.id = ic.itemId LEFT JOIN inventory.Categories c ON ic.categoryId = c.id WHERE i.itemName LIKE ? GROUP BY i.id';
+        sql.query(query, itemName)
+            .then(result => {
+                res.send(result)
+            })
+            .catch(err => {
+                console.log(err);
+                return res.sendStatus(500);
+            });
+
+    },
     getItemByIdInBox: (req, res) => {
         let id = req.params.id;
         let boxId = req.params.boxId;

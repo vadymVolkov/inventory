@@ -55,6 +55,9 @@ app.route('/item/:id')
 app.route('/item/get/name')
     .get(inventory.getItemByName);
 
+app.route('/item/get/fullname')
+    .get(inventory.getItemsByFullName);
+
 app.route('/item/get/category')
     .get(inventory.getItemsByCategory);
 
